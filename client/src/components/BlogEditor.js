@@ -52,7 +52,7 @@ const BlogEditor = ({ postId }) => {
   }, [content, dispatch, title, postId]);
 
   return (
-    <div className="blog-container">
+    <div className="blog-container m">
       <p>{autosaving ? "saving..." : "saved"}</p>
       <label className="input-title">Title:</label>
       <input
