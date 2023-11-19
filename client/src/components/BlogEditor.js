@@ -3,14 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updatePost } from "../redux/actions/postActions";
 import axios from "axios";
-import "../styles/blog/BlogEditor.css";
+// import "../styles/blog/BlogEditor.css";
 import config from "../config.json";
 
 const BlogEditor = ({ postId }) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
-  const [autosaving, setautosaving] = useState(false);
 
   // Assuming you have a Redux state for the selected post
   // const selectedPost = useSelector((state) => state.selectedPost);
@@ -34,38 +33,72 @@ const BlogEditor = ({ postId }) => {
   }, [postId]);
 
   const handleContentChange = (e) => {
+    e.preventDefault();
     setContent(e.target.value);
+    localStorage.setItem("scrollPosition", window.scrollY.toString());
   };
 
   const handleTitleChange = (e) => {
+    e.preventDefault();
     setTitle(e.target.value);
+    localStorage.setItem("scrollPosition", window.scrollY.toString());
   };
 
   useEffect(() => {
     const autosave = setTimeout(() => {
-      setautosaving(true);
       dispatch(updatePost({ title, content }, postId));
-      setautosaving(false);
-    }, 1000);
+      // Set the height of the textarea to its scrollHeight
+      const textarea = document.getElementById("contentTextarea");
+      if (textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = textarea.scrollHeight + "px";
+      }
+      const savedScrollPosition = localStorage.getItem("scrollPosition");
+      if (savedScrollPosition) {
+        window.scrollTo(0, parseInt(savedScrollPosition, 10));
+      }
+      // Reset scroll behavior to default (non-smooth) after setting the scroll position
+      document.documentElement.style.scrollBehavior = "auto";
+    }, 3000);
 
     return () => clearTimeout(autosave);
   }, [content, dispatch, title, postId]);
 
+  // Save the scroll position to localStorage on component unmount
+  useEffect(() => {
+    return () => {
+      localStorage.setItem("scrollPosition", window.scrollY.toString());
+    };
+  }, []);
+
   return (
-    <div className="blog-container m">
-      <p>{autosaving ? "saving..." : "saved"}</p>
-      <label className="input-title">Title:</label>
-      <input
-        className="input-text input-container"
-        value={title}
-        onChange={handleTitleChange}
-      ></input>
-      <label className="input-content">Content:</label>
-      <textarea
-        className="textarea-content textarea-container"
-        value={content}
-        onChange={handleContentChange}
-      />
+    <div className="blog-container mt-4">
+      {/* <p className="mb-2">{autosaving ? "Saving..." : "Saved"}</p> */}
+      <div className="mb-3">
+        <label htmlFor="title" className="form-label input-title">
+          Title
+        </label>
+        <input
+          type="text"
+          className="form-control input-text"
+          id="title"
+          value={title}
+          onChange={handleTitleChange}
+          style={{ fontWeight: "bold", fontSize: "large" }}
+        />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="content" className="form-label input-content">
+          Content
+        </label>
+        <textarea
+          id="contentTextarea"
+          className="form-control textarea-content"
+          value={content}
+          onChange={handleContentChange}
+          style={{ overflow: "hidden" }}
+        />
+      </div>
     </div>
   );
 };
