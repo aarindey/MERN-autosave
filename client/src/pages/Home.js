@@ -1,8 +1,9 @@
 // Home.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import "../styles/Home.css";
+import config from "../config.json";
+
 const Home = () => {
   const [posts, setPosts] = useState([]);
 
@@ -10,7 +11,7 @@ const Home = () => {
     // Fetch all posts from the API
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/posts");
+        const response = await axios.get(`${config.API_URL}/api/posts`);
         setPosts(response.data);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -23,7 +24,7 @@ const Home = () => {
   const handleDelete = async (postId) => {
     try {
       // Send a delete request to remove the post with the specified ID
-      await axios.delete(`http://localhost:5000/api/posts/${postId}`);
+      await axios.delete(`${config.API_URL}/api/posts/${postId}`);
 
       // Update the local state to reflect the deletion
       setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));

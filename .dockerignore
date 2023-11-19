@@ -1,9 +1,9 @@
-# Exclude node_modules directories for both backend and frontend
+# Exclude node_modules directories for both backend and client
 backend/node_modules
-frontend/node_modules
+client/node_modules
 
-# Exclude build output for the frontend
-frontend/dist
+# Exclude build output for the client
+client/dist
 
 # Exclude Docker-related files
 .dockerignore

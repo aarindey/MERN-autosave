@@ -1,9 +1,10 @@
 // BlogEditor.js
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updatePost } from "../redux/actions/postActions";
 import axios from "axios";
 import "../styles/blog/BlogEditor.css";
+import config from "../config.json";
 
 const BlogEditor = ({ postId }) => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const BlogEditor = ({ postId }) => {
     const fetchPostData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/posts/${postId}`
+          `${config.API_URL}/api/posts/${postId}`
         );
         const { title, content } = response.data;
         setTitle(title);
