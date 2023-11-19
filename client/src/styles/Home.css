@@ -1,0 +1,44 @@
+/* Home.css */
+
+/* Styling for the overall blog card */
+.blog-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px auto;
+  text-decoration: none;
+  color: black;
+  display: block;
+  transition: box-shadow 0.3s ease;
+  width: 600px;
+}
+
+/* Styling for links within the blog card */
+.blog-card a {
+  text-decoration: none;
+  color: black;
+}
+
+/* Hover effect for the blog card */
+.blog-card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the title of the blog card */
+.card-title {
+  /* Uncomment the following line if needed */
+  /* font-size: 1.5em; */
+  margin-bottom: 10px;
+}
+
+/* Styling for the content of the blog card */
+.card-content {
+  font-size: 1em;
+  /* Add styles to handle overflowing content if needed */
+  /* For example: */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Add more styles as needed */

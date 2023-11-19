@@ -1,14 +1,14 @@
 # Use an official Node.js runtime as the base image
 FROM node:14
 
-# Copy package.json and package-lock.json files for both frontend and backend to /app in the container
-COPY ./frontend/package*.json /app/frontend/
+# Copy package.json and package-lock.json files for both client and backend to /app in the container
+COPY ./client/package*.json /app/client/
 COPY ./backend/package*.json /app/backend/
 
-# Set a working directory for the frontend within the container
-WORKDIR /app/frontend
+# Set a working directory for the client within the container
+WORKDIR /app/client
 
-# Install frontend dependencies
+# Install client dependencies
 RUN npm install
 
 # Set a working directory for the backend within the container
@@ -20,13 +20,13 @@ RUN npm install
 # Copy the entire project folder to /app in the container
 COPY . /app/
 
-# Set a working directory for the frontend within the container
-WORKDIR /app/frontend
+# Set a working directory for the client within the container
+WORKDIR /app/client
 
 # # Install the client's dependencies
 # RUN npm install
 
-# Build the frontend application
+# Build the client application
 RUN npm run build
 
 # Set a working directory for the backend within the container
