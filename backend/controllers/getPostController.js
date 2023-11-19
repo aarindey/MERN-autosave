@@ -1,3 +1,5 @@
+const Post = require("../models/post");
+
 // Controller function to get a specific post by ID
 const getPost = async (req, res) => {
   try {

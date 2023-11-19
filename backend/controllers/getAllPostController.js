@@ -1,3 +1,5 @@
+const Post = require("../models/post");
+
 // Controller function to get all posts
 const getAllPost = async (req, res) => {
   try {

@@ -1,3 +1,5 @@
+const Post = require("../models/post");
+
 // Controller function to delete a post by ID
 const deletePost = async (req, res) => {
   try {

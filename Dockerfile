@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image
-FROM node:14
+FROM node:16
 
 # Copy package.json and package-lock.json files for both client and backend to /app in the container
 COPY ./client/package*.json /app/client/
@@ -23,17 +23,11 @@ COPY . /app/
 # Set a working directory for the client within the container
 WORKDIR /app/client
 
-# # Install the client's dependencies
-# RUN npm install
-
 # Build the client application
 RUN npm run build
 
 # Set a working directory for the backend within the container
 WORKDIR /app/backend
-
-# # Install the server's dependencies
-# RUN npm install
 
 # Expose the port your Node.js server will listen on (replace 3000 with your server's port)
 EXPOSE 5000

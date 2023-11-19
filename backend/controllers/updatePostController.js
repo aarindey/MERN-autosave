@@ -1,3 +1,5 @@
+const Post = require("../models/post");
+
 // Controller function to update a specific post by ID
 const updatePost = async (req, res) => {
   try {

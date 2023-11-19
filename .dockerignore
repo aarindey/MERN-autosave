@@ -3,7 +3,7 @@ backend/node_modules
 client/node_modules
 
 # Exclude build output for the client
-client/dist
+client/build
 
 # Exclude Docker-related files
 .dockerignore
