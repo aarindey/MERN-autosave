@@ -4,7 +4,7 @@ const Post = require("../models/post");
 const getAllPost = async (req, res) => {
   try {
     // Retrieve all posts from the database
-    const posts = await Post.find();
+    const posts = await Post.find().sort({ updatedAt: -1 });
 
     // Respond with the list of posts as JSON
     res.json(posts);

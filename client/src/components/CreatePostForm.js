@@ -1,9 +1,14 @@
 // CreatePostForm.js
 import React, { useState } from "react";
-import "../styles/createPost/CreatePostForm.css"
+import { useNavigate } from "react-router-dom";
+
+
+// import "../styles/createPost/CreatePostForm.css"
 const CreatePostForm = ({ onPost }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const navigate  = useNavigate();
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -11,6 +16,12 @@ const CreatePostForm = ({ onPost }) => {
 
   const handleContentChange = (e) => {
     setContent(e.target.value);
+    // Set the height of the textarea to its scrollHeight
+    const textarea = document.getElementById("contentTextarea");
+    if (textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px";
+    }
   };
 
   const handlePostClick = () => {
@@ -25,17 +36,42 @@ const CreatePostForm = ({ onPost }) => {
     } else {
       alert("Please fill in both title and content fields.");
     }
+    navigate("/");
   };
 
   return (
     <div className="create-post-form">
-      <label>Title:</label>
-      <input type="text" value={title} onChange={handleTitleChange} />
+      <div className="mb-3">
+        <label htmlFor="title" className="form-label">
+          Title
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="title"
+          value={title}
+          onChange={handleTitleChange}
+          style={{ fontWeight: "bold", fontSize: "large" }}
+        />
+      </div>
 
-      <label>Content:</label>
-      <textarea value={content} onChange={handleContentChange} />
-
-      <button onClick={handlePostClick}>Post</button>
+      <div className="mb-3">
+        <label htmlFor="content" className="form-label">
+          Content
+        </label>
+        <textarea
+          className="form-control"
+          id="contentTextarea"
+          value={content}
+          onChange={handleContentChange}
+          style={{ overflow: "hidden" }}
+        />
+      </div>
+      <div className="hstack">
+        <button className="btn btn-success ms-auto" onClick={handlePostClick}>
+          Post
+        </button>
+      </div>
     </div>
   );
 };
