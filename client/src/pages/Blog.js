@@ -6,11 +6,7 @@ import BlogEditor from "../components/BlogEditor";
 const Blog = () => {
   const { id } = useParams();
 
-  return (
-    <div>
-      <BlogEditor postId={id} />
-    </div>
-  );
+  return <BlogEditor postId={id} />;
 };
 
 export default Blog;

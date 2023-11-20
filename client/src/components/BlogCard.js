@@ -1,8 +1,14 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import config from "../config.json";
 
 const BlogCard = ({ post, setPosts }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleContent = () => {
+    setExpanded(!expanded);
+  };
+
   const handleDelete = async (postId) => {
     try {
       // Send a delete request to remove the post with the specified ID
@@ -18,7 +24,12 @@ const BlogCard = ({ post, setPosts }) => {
   return (
     <div className="card mt-4">
       <div className="card-body">
-        <div style={{ maxHeight: "300px", overflow: "hidden" }}>
+        <div
+          style={{
+            maxHeight: expanded ? "none" : "300px",
+            overflow: expanded ? "visible" : "hidden",
+          }}
+        >
           <h4 className="card-title">{post.title}</h4>
           <hr></hr>
           <pre className="card-text" style={{ whiteSpace: "pre-wrap" }}>
@@ -27,8 +38,11 @@ const BlogCard = ({ post, setPosts }) => {
         </div>
 
         <div className="hstack pt-2">
+          <button className="btn btn-secondary m-2" onClick={toggleContent}>
+            {expanded ? "Collapse" : "Expand"}
+          </button>
           <a href={`/blog/${post._id}`} className="btn btn-primary ms-auto">
-            view & edit
+            Edit
           </a>
           <button
             className="btn text-bg-danger m-2"

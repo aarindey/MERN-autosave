@@ -35,6 +35,8 @@ const BlogEditor = ({ postId }) => {
   const handleContentChange = (e) => {
     e.preventDefault();
     setContent(e.target.value);
+    const textarea = document.getElementById("contentTextarea");
+    textarea.style.height = textarea.scrollHeight + "px";
     localStorage.setItem("scrollPosition", window.scrollY.toString());
   };
 
@@ -72,31 +74,33 @@ const BlogEditor = ({ postId }) => {
   }, []);
 
   return (
-    <div className="blog-container mt-4">
+    <div className="blog-container mt-4" >
       {/* <p className="mb-2">{autosaving ? "Saving..." : "Saved"}</p> */}
       <div className="mb-3">
-        <label htmlFor="title" className="form-label input-title">
-          Title
+        <label htmlFor="title" className="form-label input-title ">
+          <h5>Title</h5>
         </label>
+        
         <input
           type="text"
           className="form-control input-text"
           id="title"
           value={title}
           onChange={handleTitleChange}
-          style={{ fontWeight: "bold", fontSize: "large" }}
+          style={{fontSize: "larger" }}
         />
       </div>
       <div className="mb-3">
         <label htmlFor="content" className="form-label input-content">
-          Content
+          <h5>Content</h5>
         </label>
+        
         <textarea
           id="contentTextarea"
-          className="form-control textarea-content"
+          className="form-control textarea-content p-4"
           value={content}
           onChange={handleContentChange}
-          style={{ overflow: "hidden" }}
+          style={{ overflow: "hidden",backgroundColor: "#fff"}}
         />
       </div>
     </div>
