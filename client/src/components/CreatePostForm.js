@@ -2,26 +2,27 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 // import "../styles/createPost/CreatePostForm.css"
 const CreatePostForm = ({ onPost }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
   const handleContentChange = (e) => {
+    e.preventDefault();
     setContent(e.target.value);
     // Set the height of the textarea to its scrollHeight
     const textarea = document.getElementById("contentTextarea");
     if (textarea) {
-      textarea.style.height = "auto";
+      // textarea.style.height = "auto";
       textarea.style.height = textarea.scrollHeight + "px";
     }
+    document.documentElement.style.scrollBehavior = "auto";
   };
 
   const handlePostClick = () => {

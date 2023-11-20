@@ -59,7 +59,7 @@ const BlogEditor = ({ postId }) => {
       }
       // Reset scroll behavior to default (non-smooth) after setting the scroll position
       document.documentElement.style.scrollBehavior = "auto";
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(autosave);
   }, [content, dispatch, title, postId]);
