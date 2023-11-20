@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const CreatePostForm = ({ onPost }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [loading, setloading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ const CreatePostForm = ({ onPost }) => {
   };
 
   const handlePostClick = () => {
+    setloading(true);
     // Validate data if needed
     if (title.trim() !== "" && content.trim() !== "") {
       // Send data to the parent component
@@ -34,11 +36,27 @@ const CreatePostForm = ({ onPost }) => {
       // Clear the form
       setTitle("");
       setContent("");
+      setTimeout(() => {
+        navigate("/");
+        setloading(false);
+      }, 500);
+      
     } else {
       alert("Please fill in both title and content fields.");
+      setloading(false);
     }
-    navigate("/");
+    
   };
+
+  while (loading) {
+    return (
+      <div className="d-flex justify-content-center mt-5 pt-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="create-post-form">
