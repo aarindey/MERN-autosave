@@ -24,7 +24,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to the MongoDB database
-connectToDB();
+connectToDB().then(() => {
+  console.log(`The mongoDB is connected to port ${process.env.MONGO_URL}`);
+});
 
 // Set up routes for handling posts
 app.use("/api/posts", postsRouter);
